@@ -10,11 +10,11 @@ pub enum Uri<T> {
 }
 
 pub struct Person {
-    subject: SubjectData,
-    private: Option<bool>,
-    gender: Option<Gender>,
-    names: Vec<Name>,
-    facts: Vec<Fact>,
+    pub subject: SubjectData,
+    pub private: Option<bool>,
+    pub gender: Option<Gender>,
+    pub names: Vec<Name>,
+    pub facts: Vec<Fact>,
 }
 
 impl Conclusion for Person {
@@ -43,10 +43,10 @@ pub enum Relationship {
 }
 
 pub struct RelationshipData {
-    subject: SubjectData,
-    person1: Uri<Person>,
-    person2: Uri<Person>,
-    facts: Vec<Uri<Fact>>,
+    pub subject: SubjectData,
+    pub person1: Uri<Person>,
+    pub person2: Uri<Person>,
+    pub facts: Vec<Uri<Fact>>,
 }
 
 impl Conclusion for Relationship {
@@ -73,26 +73,26 @@ impl Identifiable for Relationship {
 }
 
 pub struct SourceDescription {
-    id: Id,
-    resource_type: Option<ResourceType>,
-    citations: Vec<SourceCitation>,
-    media_type: Option<String>,
-    about: Uri<Box<dyn Identifiable>>,
-    mediator: Uri<Agent>,
-    publisher: Uri<Agent>,
-    sources: Vec<SourceReference>,
-    analysis: Option<Uri<Document>>,
-    componentOf: Option<SourceReference>,
-    titles: Vec<TextValue>,
-    notes: Option<Note>,
-    attribution: Option<Attribution>,
-    rights: Option<String>,
-    coverage: Option<Coverage>,
-    descriptions: Vec<TextValue>,
-    identifiers: Vec<Identifier>,
-    created: Option<Timestamp>,
-    modified: Option<Timestamp>,
-    repository: Option<Agent>,
+    pub id: Id,
+    pub resource_type: Option<ResourceType>,
+    pub citations: Vec<SourceCitation>,
+    pub media_type: Option<String>,
+    pub about: Uri<Box<dyn Identifiable>>,
+    pub mediator: Uri<Agent>,
+    pub publisher: Uri<Agent>,
+    pub sources: Vec<SourceReference>,
+    pub analysis: Option<Uri<Document>>,
+    pub component_of: Option<SourceReference>,
+    pub titles: Vec<TextValue>,
+    pub notes: Option<Note>,
+    pub attribution: Option<Attribution>,
+    pub rights: Option<String>,
+    pub coverage: Option<Coverage>,
+    pub descriptions: Vec<TextValue>,
+    pub identifiers: Vec<Identifier>,
+    pub created: Option<Timestamp>,
+    pub modified: Option<Timestamp>,
+    pub repository: Option<Agent>,
 }
 
 pub enum ResourceType {
@@ -103,16 +103,16 @@ pub enum ResourceType {
 }
 
 pub struct Agent {
-    id: Id,
-    identifiers: Vec<String>,
-    names: Vec<TextValue>,
-    homepage: Option<String>,
-    openid: Option<String>,
-    accounts: Vec<OnlineAccount>,
-    emails: Vec<String>,
-    phones: Vec<String>,
-    addresses: Vec<Address>,
-    person: Option<Uri<Person>>,
+    pub id: Id,
+    pub identifiers: Vec<String>,
+    pub names: Vec<TextValue>,
+    pub homepage: Option<String>,
+    pub openid: Option<String>,
+    pub accounts: Vec<OnlineAccount>,
+    pub emails: Vec<String>,
+    pub phones: Vec<String>,
+    pub addresses: Vec<Address>,
+    pub person: Option<Uri<Person>>,
 }
 
 pub enum Event {
@@ -154,10 +154,10 @@ impl Subject for Event {
 }
 
 pub struct EventData {
-    subject: SubjectData,
-    date: Option<Date>,
-    place: Option<PlaceReference>,
-    roles: Vec<EventRole>,
+    pub subject: SubjectData,
+    pub date: Option<Date>,
+    pub place: Option<PlaceReference>,
+    pub roles: Vec<EventRole>,
 }
 
 pub enum Document {
@@ -185,19 +185,19 @@ impl Identifiable for Document {
 }
 
 pub struct DocumentData {
-    conclusion: ConclusionData,
+    pub conclusion: ConclusionData,
 }
 
 pub struct PlaceDescription {
-    subject: SubjectData,
-    names: NonEmptyVec<TextValue>,
-    typee: Option<PlaceType>,
-    place: Option<String>,
-    jurisdiction: Option<Uri<Box<PlaceDescription>>>,
-    latitude: Option<f32>,
-    longitude: Option<f32>,
-    temporalDescription: Option<Date>,
-    spatialDescription: Option<Kml>,
+    pub subject: SubjectData,
+    pub names: NonEmptyVec<TextValue>,
+    pub typee: Option<PlaceType>,
+    pub place: Option<String>,
+    pub jurisdiction: Option<Uri<Box<PlaceDescription>>>,
+    pub latitude: Option<f32>,
+    pub longitude: Option<f32>,
+    pub temporal_description: Option<Date>,
+    pub spatial_description: Option<Kml>,
 }
 
 impl Conclusion for PlaceDescription {
@@ -225,11 +225,11 @@ pub type PlaceType = String;
 pub type Kml = String;
 
 pub struct Group {
-    subject: SubjectData,
-    names: Vec<TextValue>,
-    date: Option<Date>,
-    place: Option<PlaceReference>,
-    roles: Option<GroupRole>,
+    pub subject: SubjectData,
+    pub names: Vec<TextValue>,
+    pub date: Option<Date>,
+    pub place: Option<PlaceReference>,
+    pub roles: Option<GroupRole>,
 }
 
 impl Conclusion for Group {

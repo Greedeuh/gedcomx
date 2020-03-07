@@ -12,7 +12,7 @@ pub enum IdentifierType {
 pub struct Attribution {
     pub contributor: Option<Uri<Agent>>,
     pub modified: Option<Timestamp>,
-    pub changeMessage: Option<String>,
+    pub change_message: Option<String>,
     pub creator: Option<Agent>,
     pub created: Option<Timestamp>,
 }
@@ -36,7 +36,7 @@ pub struct SourceCitation {
 
 pub struct SourceReference {
     pub description: Uri<Box<SourceDescription>>,
-    pub descriptionId: Option<Id>,
+    pub description_id: Option<Id>,
     pub attribution: Option<Attribution>,
     pub qualifiers: Vec<SourceReferenceQualifier>,
 }
@@ -53,8 +53,8 @@ pub struct EvidenceReference {
 }
 
 pub struct OnlineAccount {
-    pub serviceHomepage: String,
-    pub accountName: String,
+    pub service_homepage: String,
+    pub account_name: String,
 }
 pub struct Address {
     pub value: Option<String>,
@@ -289,7 +289,7 @@ pub enum NamePartQualifier {
 
 pub struct NameForm {
     pub lang: Option<Lang>,
-    pub fullText: Option<String>,
+    pub full_text: Option<String>,
     pub parts: Vec<NamePart>,
 }
 
