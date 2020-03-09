@@ -1,14 +1,19 @@
 // + TextValue => qui a lang ca peut etre bien
 // 4. Extracted Conclusion Constraints
 mod components;
-pub use components::*;
+mod persistance;
 
+pub use components::*;
+pub use persistance::*;
+
+#[derive(Debug)]
 pub enum Uri<T> {
     Some(Box<T>),
     //    Ref(&'a T),
     Id(String),
 }
 
+#[derive(Debug)]
 pub struct Person {
     pub subject: SubjectData,
     pub private: Option<bool>,
@@ -34,7 +39,7 @@ impl Identifiable for Person {
         &self.conclusion().id
     }
 }
-
+#[derive(Debug)]
 pub enum Relationship {
     Unknow(RelationshipData),
     Couple(RelationshipData),
@@ -42,6 +47,7 @@ pub enum Relationship {
     EnslavedBy(RelationshipData),
 }
 
+#[derive(Debug)]
 pub struct RelationshipData {
     pub subject: SubjectData,
     pub person1: Uri<Person>,
@@ -72,14 +78,15 @@ impl Identifiable for Relationship {
     }
 }
 
+#[derive(Debug)]
 pub struct SourceDescription {
     pub id: Id,
     pub resource_type: Option<ResourceType>,
     pub citations: Vec<SourceCitation>,
     pub media_type: Option<String>,
     pub about: Uri<Box<dyn Identifiable>>,
-    pub mediator: Uri<Agent>,
-    pub publisher: Uri<Agent>,
+    pub mediator: Option<Uri<Agent>>,
+    pub publisher: Option<Uri<Agent>>,
     pub sources: Vec<SourceReference>,
     pub analysis: Option<Uri<Document>>,
     pub component_of: Option<SourceReference>,
@@ -94,14 +101,14 @@ pub struct SourceDescription {
     pub modified: Option<Timestamp>,
     pub repository: Option<Agent>,
 }
-
+#[derive(Debug)]
 pub enum ResourceType {
     Collection,
     PhysicalArtifact,
     DigitalArtifact,
     Record,
 }
-
+#[derive(Debug)]
 pub struct Agent {
     pub id: Id,
     pub identifiers: Vec<String>,
@@ -114,7 +121,7 @@ pub struct Agent {
     pub addresses: Vec<Address>,
     pub person: Option<Uri<Person>>,
 }
-
+#[derive(Debug)]
 pub enum Event {
     Adoption(EventData),
     Birth(EventData),
@@ -152,14 +159,14 @@ impl Subject for Event {
         }
     }
 }
-
+#[derive(Debug)]
 pub struct EventData {
     pub subject: SubjectData,
     pub date: Option<Date>,
     pub place: Option<PlaceReference>,
     pub roles: Vec<EventRole>,
 }
-
+#[derive(Debug)]
 pub enum Document {
     Analysis(DocumentData),
     Abstract(DocumentData),
@@ -183,11 +190,11 @@ impl Identifiable for Document {
         &self.conclusion().id
     }
 }
-
+#[derive(Debug)]
 pub struct DocumentData {
     pub conclusion: ConclusionData,
 }
-
+#[derive(Debug)]
 pub struct PlaceDescription {
     pub subject: SubjectData,
     pub names: NonEmptyVec<TextValue>,
@@ -223,13 +230,13 @@ pub type NonEmptyVec<T> = Vec<T>;
 pub type PlaceType = String;
 
 pub type Kml = String;
-
+#[derive(Debug)]
 pub struct Group {
     pub subject: SubjectData,
     pub names: Vec<TextValue>,
     pub date: Option<Date>,
     pub place: Option<PlaceReference>,
-    pub roles: Option<GroupRole>,
+    pub roles: Vec<GroupRole>,
 }
 
 impl Conclusion for Group {

@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "gedcomx",
+            "dialect": "PostgreSQL",
+            "name": "gedcomx-pgsql",
+            "password": "Ad",
+            "port": 5432,
+            "server": "localhost",
+            "username": "postgresql"
+        }
+    ]
+}

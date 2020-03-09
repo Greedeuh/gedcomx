@@ -1,61 +1,65 @@
 use crate::*;
 
+#[derive(Debug)]
 pub struct Identifier {
     pub uri: String,
     pub typee: Option<IdentifierType>,
 }
 
+#[derive(Debug)]
 pub enum IdentifierType {
     None,
 }
 
+#[derive(Debug)]
 pub struct Attribution {
     pub contributor: Option<Uri<Agent>>,
     pub modified: Option<Timestamp>,
     pub change_message: Option<String>,
-    pub creator: Option<Agent>,
+    pub creator: Option<Uri<Agent>>,
     pub created: Option<Timestamp>,
 }
-
+#[derive(Debug)]
 pub struct Note {
     pub lang: Option<Lang>,
     pub subject: Option<String>,
     pub text: String,
     pub attribution: Option<Attribution>,
 }
-
+#[derive(Debug)]
 pub struct TextValue {
     pub lang: Option<Lang>,
     pub value: String,
 }
-
+#[derive(Debug)]
 pub struct SourceCitation {
     pub lang: String,
     pub value: String,
 }
-
+#[derive(Debug)]
 pub struct SourceReference {
     pub description: Uri<Box<SourceDescription>>,
     pub description_id: Option<Id>,
     pub attribution: Option<Attribution>,
     pub qualifiers: Vec<SourceReferenceQualifier>,
 }
-
+#[derive(Debug)]
 pub enum SourceReferenceQualifier {
     CharacterRegion,
     RectangleRegion,
     TimeRegion,
 }
-
+#[derive(Debug)]
 pub struct EvidenceReference {
     pub resource: Uri<Box<dyn Subject>>,
     pub attribution: Option<Attribution>,
 }
-
+#[derive(Debug)]
 pub struct OnlineAccount {
     pub service_homepage: String,
     pub account_name: String,
 }
+#[derive(Debug)]
 pub struct Address {
     pub value: Option<String>,
     pub city: Option<String>,
@@ -70,7 +74,7 @@ pub struct Address {
     pub street6: Option<String>,
 }
 
-pub trait Identifiable {
+pub trait Identifiable: std::fmt::Debug {
     fn id(&self) -> &Id;
 }
 
@@ -79,7 +83,7 @@ pub type Id = String;
 pub trait Conclusion: Identifiable {
     fn conclusion(&self) -> &ConclusionData;
 }
-
+#[derive(Debug)]
 pub struct ConclusionData {
     pub id: Id,
     pub lang: Option<String>,
@@ -89,7 +93,7 @@ pub struct ConclusionData {
     pub confidence: Option<ConfidenceLevel>,
     pub attribution: Option<Attribution>,
 }
-
+#[derive(Debug)]
 pub enum ConfidenceLevel {
     High,
     Medium,
@@ -99,7 +103,7 @@ pub enum ConfidenceLevel {
 pub trait Subject: Conclusion {
     fn subject(&self) -> &SubjectData;
 }
-
+#[derive(Debug)]
 pub struct SubjectData {
     pub conclusion: ConclusionData,
     pub extracted: Option<bool>,
@@ -107,7 +111,7 @@ pub struct SubjectData {
     pub media: Vec<SourceReference>,
     pub identifiers: Vec<Identifier>,
 }
-
+#[derive(Debug)]
 pub enum Gender {
     Male(ConclusionData),
     Female(ConclusionData),
@@ -131,7 +135,7 @@ impl Identifiable for Gender {
         &self.conclusion().id
     }
 }
-
+#[derive(Debug)]
 pub enum Name {
     None(NameData),
     BirthName(NameData),
@@ -157,7 +161,7 @@ impl Name {
         }
     }
 }
-
+#[derive(Debug)]
 pub struct NameData {
     pub conclusion: ConclusionData,
     pub name_forms: Vec<NameForm>,
@@ -175,7 +179,7 @@ impl Identifiable for Name {
         &self.conclusion().id
     }
 }
-
+#[derive(Debug)]
 pub enum Fact {
     Adoption(FactData),
     Birth(FactData),
@@ -201,7 +205,7 @@ impl Fact {
         }
     }
 }
-
+#[derive(Debug)]
 pub struct FactData {
     pub conclusion: ConclusionData,
     pub date: Option<Date>,
@@ -209,7 +213,7 @@ pub struct FactData {
     pub value: Option<String>,
     pub qualifiers: Vec<FactQualifier>,
 }
-
+#[derive(Debug)]
 pub enum FactQualifier {
     Age,
     Cause,
@@ -229,7 +233,7 @@ impl Identifiable for Fact {
         &self.conclusion().id
     }
 }
-
+#[derive(Debug)]
 pub enum EventRole {
     None(EventRoleData),
     Principal(EventRoleData),
@@ -237,24 +241,24 @@ pub enum EventRole {
     Official(EventRoleData),
     Witness(EventRoleData),
 }
-
+#[derive(Debug)]
 pub struct EventRoleData {
     pub person: Uri<Person>,
     pub details: Option<String>,
 }
-
+#[derive(Debug)]
 pub struct Date {
     pub original: Option<String>,
     pub formal: Option<DateX>,
 }
-
+#[derive(Debug)]
 pub struct DateX;
-
+#[derive(Debug)]
 pub struct PlaceReference {
     pub original: Option<String>,
     pub description_ref: Option<Uri<PlaceDescription>>,
 }
-
+#[derive(Debug)]
 pub enum NamePart {
     None(NamePartData),
     Prefix(NamePartData),
@@ -262,12 +266,12 @@ pub enum NamePart {
     Given(NamePartData),
     Surname(NamePartData),
 }
-
+#[derive(Debug)]
 pub struct NamePartData {
     pub value: String,
     pub qualifiers: Vec<NamePartQualifier>,
 }
-
+#[derive(Debug)]
 pub enum NamePartQualifier {
     Title,
     Primary,
@@ -286,22 +290,22 @@ pub enum NamePartQualifier {
     Particle,
     RootName,
 }
-
+#[derive(Debug)]
 pub struct NameForm {
     pub lang: Option<Lang>,
     pub full_text: Option<String>,
     pub parts: Vec<NamePart>,
 }
-
+#[derive(Debug)]
 pub struct Coverage {
     pub spatial: Option<PlaceReference>,
     pub temporal: Option<Date>,
 }
-
+#[derive(Debug)]
 pub enum GroupRole {
     Unknow(GroupRoleData),
 }
-
+#[derive(Debug)]
 pub struct GroupRoleData {
     pub person: Uri<Person>,
     pub date: Option<Date>,
@@ -309,5 +313,5 @@ pub struct GroupRoleData {
 }
 
 pub type Lang = String;
-
+#[derive(Debug)]
 pub struct Timestamp {}
